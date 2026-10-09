@@ -459,7 +459,7 @@ export default function App() {
               <div className="font-mono text-3xl font-extrabold text-sage">&lt;+&gt;</div>
               <h3 className="mt-3 text-lg font-bold text-ink">Ваш бизнес — следующий</h3>
               <p className="mt-2 text-sm text-mist">
-                Если вы нашли себя в базе — напишите нам, соберём ваш демо-сайт бесплатно.
+                Если ваш бизнес уже есть на Яндекс.Картах — напишите нам, соберём ваш демо-сайт бесплатно.
               </p>
               <a
                 href="#cta"
