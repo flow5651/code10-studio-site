@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { getProject, fmtPhone, yandexMapsUrl, type Project } from './projects'
+import { getMenu, type MenuCategory } from './menu'
 import { Mark } from './Logo'
 import './index.css'
 
@@ -16,9 +18,52 @@ function Stars({ value }: { value: number }) {
   )
 }
 
+function Menu({ categories, accent }: { categories: MenuCategory[]; accent: string }) {
+  const [tab, setTab] = useState(categories[0].title)
+  const active = categories.find((c) => c.title === tab) ?? categories[0]
+  return (
+    <section className="mx-auto max-w-5xl px-5 py-16">
+      <h2 className="font-mono text-xs uppercase tracking-[0.25em]" style={{ color: accent }}>
+        Меню
+      </h2>
+      <h3 className="mt-2 text-3xl font-extrabold">Актуальный прайс кафе</h3>
+
+      <div className="mt-6 flex flex-wrap gap-2">
+        {categories.map((c) => (
+          <button
+            key={c.title}
+            onClick={() => setTab(c.title)}
+            className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+              c.title === active.title ? 'text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+            style={c.title === active.title ? { backgroundColor: accent } : undefined}
+          >
+            {c.title}
+          </button>
+        ))}
+      </div>
+
+      <ul className="mt-8 divide-y divide-edge">
+        {active.items.map((it) => (
+          <li key={it.name} className="flex items-baseline justify-between gap-4 py-3">
+            <div>
+              <div className="font-medium">{it.name}</div>
+              {it.desc && <div className="text-sm text-gray-500">{it.desc}</div>}
+            </div>
+            <div className="shrink-0 font-semibold" style={{ color: accent }}>
+              {it.price} ₽
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
 function DemoTemplate({ p }: { p: Project }) {
   const accent = p.accent
   const link = { color: accent }
+  const menu = getMenu(p.slug)
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
@@ -94,6 +139,8 @@ function DemoTemplate({ p }: { p: Project }) {
         </div>
         <p className="mt-6 max-w-2xl text-gray-600">{p.desc}</p>
       </section>
+
+      {menu && menu.length > 0 && <Menu categories={menu} accent={accent} />}
 
       {/* CTA */}
       <section className="bg-gray-50 py-16">

@@ -11,6 +11,7 @@ export const PRICING = {
     { id: 'land', label: 'Лендинг', desc: 'одностраничник по нише', price: 2000 },
     { id: 'catalog', label: 'Сайт-каталог', desc: 'услуги / прайс, до 20 стр.', price: 5000 },
     { id: 'shop', label: 'Каталог с записью', desc: 'услуги + онлайн-запись', price: 7000 },
+    { id: 'redesign', label: 'Редизайн сайта', desc: 'обновление дизайна и скорости', price: 3500 },
   ] as Base[],
 
   // Опции-добавки

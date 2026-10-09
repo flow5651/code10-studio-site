@@ -50,6 +50,12 @@ const products = [
     desc: 'Внутренние инструменты, парсинг и аналитика рынка. Автоматизируем ручные процессы.',
     tags: ['Python', 'FastAPI'],
   },
+  {
+    code: '006',
+    title: 'Редизайн сайтов',
+    desc: 'Обновляем дизайн и скорость старых сайтов: современный вид, адаптив под телефон, новые механике без потери позиций.',
+    tags: ['Рестайл', 'Perf', 'Сохранение SEO'],
+  },
 ]
 
 const niches = [
@@ -425,13 +431,13 @@ export default function App() {
                     alt={p.name}
                     className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                  <div className="absolute bottom-3 left-4 right-4">
-                    <div className="font-mono text-xs uppercase tracking-[0.2em]" style={{ color: p.accent }}>
-                      {p.niche}
-                    </div>
-                    <div className="mt-1 text-lg font-bold text-white">{p.name}</div>
-                  </div>
+<div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/25" />
+<div className="absolute bottom-3 left-4 right-4">
+                     <div className="font-mono text-xs uppercase tracking-[0.2em] text-white/70 [text-shadow:0_1px_6px_rgba(0,0,0,.6)]">
+                       {p.niche}
+                     </div>
+                     <div className="mt-1 text-lg font-bold text-white [text-shadow:0_1px_8px_rgba(0,0,0,.6)]">{p.name}</div>
+                   </div>
                 </div>
                 <div className="p-5">
                   <div className="flex items-center gap-2 text-sm text-mist">

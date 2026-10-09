@@ -58,7 +58,7 @@ export function Calculator() {
       {/* Левая часть — настройки */}
       <div className="space-y-6 rounded-2xl border border-edge bg-paper p-5 sm:p-6">
         <div>
-          <h3 className="mb-3 font-semibold text-ink">Тип сайта</h3>
+          <h3 className="mb-3 font-semibold text-ink">Тип работы</h3>
           <div className="grid gap-3 sm:grid-cols-3">
             {bases.map((b) => {
               const active = b.id === baseId
