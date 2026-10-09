@@ -376,9 +376,6 @@ export default function App() {
                       className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <span className="absolute right-3 top-3 rounded-full bg-white/85 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-ink">
-                      сайт сегодня
-                    </span>
                     <div className="absolute bottom-3 left-4 right-4">
                       <div className="font-mono text-xs uppercase tracking-[0.2em]" style={{ color: '#a9c4ff' }}>
                         {s.niche}
@@ -655,10 +652,6 @@ export default function App() {
                   <div className="flex justify-between gap-4">
                     <dt className="text-mist">Ниша</dt>
                     <dd className="font-medium text-ink">Производство · B2C</dd>
-                  </div>
-                  <div className="flex justify-between gap-4">
-                    <dt className="text-mist">Статус</dt>
-                    <dd className="font-medium text-sage">Работает</dd>
                   </div>
                 </dl>
                 <a
