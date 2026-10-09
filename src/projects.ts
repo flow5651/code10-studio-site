@@ -105,7 +105,7 @@ export function getProject(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug)
 }
 
-// Живые производственные сайты студии (ссылки во внешний мир, не демо)
+// Реальные сайты, сделанные студией (ссылки во внешний мир, не демо)
 export type LiveSite = {
   name: string
   niche: string
@@ -122,7 +122,7 @@ export const liveSites: LiveSite[] = [
     url: 'https://famounts.ru/',
     accent: '#31517a',
     featured: true,
-    desc: 'Каталог астрономического оборудования ручной работы: 3D-модели, готовые изделия, услуги OnStep и лазерной гравировки. Живой сайт в продакшене.',
+    desc: 'Каталог астрономического оборудования ручной работы: 3D-модели, готовые изделия, услуги OnStep и лазерной гравировки. Работающий сайт.',
   },
 ]
 

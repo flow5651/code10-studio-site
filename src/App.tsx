@@ -355,49 +355,12 @@ export default function App() {
       {/* Portfolio */}
       <section id="portfolio" className="bg-white py-24">
         <div className="mx-auto max-w-6xl px-5">
-          <SectionHead k="· Портфолио" t="Живые демо из нашей базы лидов" />
+          <SectionHead k="· Портфолио" t="Что мы уже сделали" />
           <p className="mx-auto -mt-8 mb-10 max-w-2xl text-center text-mist">
-            Это не фотошоп. Сайты собраны из шаблонов ниш и мгновенно заполнены реальными данных клиентов
+            Демо-сайты собраны из шаблонов ниш и мгновенно заполнены данными клиентов
             из Яндекс.Карт (название, адрес, телефон, услуги, фото, отзывы). Клик — и открывается макет.
           </p>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.map((p) => (
-              <Link
-                key={p.slug}
-                to={`/portfolio/${p.slug}`}
-                data-reveal
-                className="group overflow-hidden rounded-2xl border border-edge bg-white shadow-sm transition hover:border-sage/60 hover:shadow-xl"
-              >
-                <div className="relative h-44 overflow-hidden bg-ink">
-                  <img
-                    src={p.image}
-                    alt={p.name}
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                  <div className="absolute bottom-3 left-4 right-4">
-                    <div className="font-mono text-xs uppercase tracking-[0.2em]" style={{ color: p.accent }}>
-                      {p.niche}
-                    </div>
-                    <div className="mt-1 text-lg font-bold text-white">{p.name}</div>
-                  </div>
-                </div>
-                <div className="p-5">
-                  <div className="flex items-center gap-2 text-sm text-mist">
-                    <span style={{ color: p.accent }}>{'★'.repeat(Math.round(p.rating))}</span>
-                    <span className="font-medium text-ink">{p.rating.toFixed(1)}</span>
-                    <span>· {p.reviews} отзывов</span>
-                  </div>
-                  <p className="mt-2 text-sm text-mist">{p.address}</p>
-                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold" style={{ color: p.accent }}>
-                    Смотреть демо
-                    <span className="transition group-hover:translate-x-1">→</span>
-                  </span>
-                </div>
-              </Link>
-            ))}
-
-            {/* Живые производственные сайты */}
             {liveSites.map((s) => (
               <button
                 key={s.url}
@@ -413,8 +376,8 @@ export default function App() {
                       className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <span className="absolute right-3 top-3 rounded-full bg-sage px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white">
-                      в продакшене
+                    <span className="absolute right-3 top-3 rounded-full bg-white/85 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-ink">
+                      сайт сегодня
                     </span>
                     <div className="absolute bottom-3 left-4 right-4">
                       <div className="font-mono text-xs uppercase tracking-[0.2em]" style={{ color: '#a9c4ff' }}>
@@ -452,6 +415,41 @@ export default function App() {
                 </div>
               </button>
             ))}
+            {projects.map((p) => (
+              <Link
+                key={p.slug}
+                to={`/portfolio/${p.slug}`}
+                data-reveal
+                className="group overflow-hidden rounded-2xl border border-edge bg-white shadow-sm transition hover:border-sage/60 hover:shadow-xl"
+              >
+                <div className="relative h-44 overflow-hidden bg-ink">
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                  <div className="absolute bottom-3 left-4 right-4">
+                    <div className="font-mono text-xs uppercase tracking-[0.2em]" style={{ color: p.accent }}>
+                      {p.niche}
+                    </div>
+                    <div className="mt-1 text-lg font-bold text-white">{p.name}</div>
+                  </div>
+                </div>
+                <div className="p-5">
+                  <div className="flex items-center gap-2 text-sm text-mist">
+                    <span style={{ color: p.accent }}>{'★'.repeat(Math.round(p.rating))}</span>
+                    <span className="font-medium text-ink">{p.rating.toFixed(1)}</span>
+                    <span>· {p.reviews} отзывов</span>
+                  </div>
+                  <p className="mt-2 text-sm text-mist">{p.address}</p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold" style={{ color: p.accent }}>
+                    Смотреть демо
+                    <span className="transition group-hover:translate-x-1">→</span>
+                  </span>
+                </div>
+              </Link>
+            ))} 
 
             {/* Плейсхолдер-приглашение */}
             <div
@@ -660,7 +658,7 @@ export default function App() {
                   </div>
                   <div className="flex justify-between gap-4">
                     <dt className="text-mist">Статус</dt>
-                    <dd className="font-medium text-sage">В продакшене</dd>
+                    <dd className="font-medium text-sage">Работает</dd>
                   </div>
                 </dl>
                 <a
