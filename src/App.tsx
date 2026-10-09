@@ -1,12 +1,12 @@
 import './index.css'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Logo, Mark } from './Logo'
 import { Calculator } from './Calculator'
 import { CONTACTS } from './site'
 import { PRICING } from './pricing'
-import { projects, liveSites } from './projects'
+import { projects, liveSites, type LiveSite } from './projects'
 import { Link } from 'react-router-dom'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -105,6 +105,17 @@ export default function App() {
   const rootRef = useRef<HTMLDivElement>(null)
   const heroRef = useRef<HTMLElement>(null)
   const countRef = useRef<HTMLDivElement>(null)
+  const [live, setLive] = useState<LiveSite | null>(null)
+
+  useEffect(() => {
+    document.body.style.overflow = live ? 'hidden' : ''
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setLive(null)
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [live])
 
   // Всё аккуратно чистим через ctx: повторный рендер (StrictMode) не сломает
   useEffect(() => {
@@ -368,13 +379,11 @@ export default function App() {
 
             {/* Живые производственные сайты */}
             {liveSites.map((s) => (
-              <a
+              <button
                 key={s.url}
-                href={s.url}
-                target="_blank"
-                rel="noreferrer"
-                data-reveal
-                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-edge bg-white shadow-sm transition hover:border-sage/60 hover:shadow-xl"
+                type="button"
+                onClick={() => setLive(s)}
+                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-edge bg-white text-left shadow-sm transition hover:border-sage/60 hover:shadow-xl"
               >
                 <div>
                   <div className="relative h-44 overflow-hidden bg-ink">
@@ -417,11 +426,11 @@ export default function App() {
                 <div className="flex items-center justify-between border-t border-edge px-5 py-3">
                   <span className="font-mono text-xs text-grey">https://{s.name}</span>
                   <span className="inline-flex items-center gap-1 text-sm font-semibold" style={{ color: s.accent }}>
-                    Открыть сайт
-                    <span className="transition group-hover:translate-x-1">↗</span>
+                    Подробнее
+                    <span className="transition group-hover:translate-x-1">→</span>
                   </span>
                 </div>
-              </a>
+              </button>
             ))}
 
             {/* Плейсхолдер-приглашение */}
@@ -582,6 +591,90 @@ export default function App() {
           </p>
         </div>
       </section>
+
+      {/* Live-модалка */}
+      {live && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
+          role="dialog"
+          aria-modal="true"
+          aria-label={live.name}
+          onClick={() => setLive(null)}
+        >
+          <div className="absolute inset-0 bg-ink/70 backdrop-blur-sm" />
+          <div
+            className="relative z-10 max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-white shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-4 border-b border-edge p-5">
+              <div>
+                <span className="font-mono text-xs uppercase tracking-[0.2em]" style={{ color: live.accent }}>
+                  {live.niche}
+                </span>
+                <h3 className="mt-1 text-2xl font-extrabold text-ink">{live.name}</h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setLive(null)}
+                aria-label="Закрыть"
+                className="rounded-lg p-2 text-ink transition hover:bg-paper"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M18 6 6 18M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="grid gap-0 lg:grid-cols-[1fr_auto]">
+              <div className="p-5">
+                <p className="text-sm leading-relaxed text-mist">{live.desc}</p>
+                <dl className="mt-4 space-y-1 text-sm">
+                  <div className="flex justify-between gap-4">
+                    <dt className="text-mist">Тип</dt>
+                    <dd className="font-medium text-ink">Каталог + услуги + блог</dd>
+                  </div>
+                  <div className="flex justify-between gap-4">
+                    <dt className="text-mist">Ниша</dt>
+                    <dd className="font-medium text-ink">Производство · B2C</dd>
+                  </div>
+                  <div className="flex justify-between gap-4">
+                    <dt className="text-mist">Статус</dt>
+                    <dd className="font-medium text-sage">В продакшене</dd>
+                  </div>
+                </dl>
+                <a
+                  href={live.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-5 inline-flex items-center gap-2 rounded-lg px-5 py-3 font-semibold text-white transition hover:opacity-90"
+                  style={{ backgroundColor: live.accent }}
+                >
+                  Открыть сайт ↗
+                </a>
+              </div>
+            </div>
+
+            <div className="border-t border-edge p-5">
+              <div className="mb-3 font-mono text-xs uppercase tracking-widest text-grey">Скриншоты</div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {[
+                  ['Главная', '/portfolio/famounts/home.jpg'],
+                  ['Каталог', '/portfolio/famounts/catalog.jpg'],
+                  ['Услуги', '/portfolio/famounts/services.jpg'],
+                  ['Блог', '/portfolio/famounts/blog.jpg'],
+                ].map(([label, src]) => (
+                  <figure key={src} className="overflow-hidden rounded-xl border border-edge">
+                    <a href={src} target="_blank" rel="noreferrer" className="block bg-paper">
+                      <img src={src} alt={`${live.name} — ${label}`} className="w-full object-cover object-top" loading="lazy" />
+                    </a>
+                    <figcaption className="px-3 py-2 text-center font-mono text-xs text-grey">{label}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="border-t border-edge bg-white py-8">
