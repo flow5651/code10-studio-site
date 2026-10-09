@@ -376,17 +376,43 @@ export default function App() {
                 data-reveal
                 className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-edge bg-white shadow-sm transition hover:border-sage/60 hover:shadow-xl"
               >
-                <div className="p-5">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs uppercase tracking-[0.2em]" style={{ color: s.accent }}>
-                      {s.niche}
-                    </span>
-                    <span className="rounded-full bg-sage/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-sage">
+                <div>
+                  <div className="relative h-44 overflow-hidden bg-ink">
+                    <img
+                      src={`/portfolio/famounts/home.jpg`}
+                      alt={`${s.name} — главная`}
+                      className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <span className="absolute right-3 top-3 rounded-full bg-sage px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white">
                       в продакшене
                     </span>
+                    <div className="absolute bottom-3 left-4 right-4">
+                      <div className="font-mono text-xs uppercase tracking-[0.2em]" style={{ color: '#a9c4ff' }}>
+                        {s.niche}
+                      </div>
+                      <div className="mt-1 text-lg font-bold text-white">{s.name}</div>
+                    </div>
                   </div>
-                  <div className="mt-2 text-lg font-bold text-ink">{s.name}</div>
-                  <p className="mt-2 text-sm leading-relaxed text-mist">{s.desc}</p>
+
+                  <div className="p-5">
+                    <p className="text-sm leading-relaxed text-mist">{s.desc}</p>
+                    <div className="no-scrollbar mt-4 flex gap-2 overflow-x-auto">
+                      {[
+                        ['Главная', '/portfolio/famounts/home.jpg'],
+                        ['Каталог', '/portfolio/famounts/catalog.jpg'],
+                        ['Услуги', '/portfolio/famounts/services.jpg'],
+                        ['Блог', '/portfolio/famounts/blog.jpg'],
+                      ].map(([label, src]) => (
+                        <span key={src} className="shrink-0">
+                          <span className="block h-16 w-24 overflow-hidden rounded-md border border-edge bg-paper">
+                            <img src={src} alt={label} className="h-full w-full object-cover object-top" loading="lazy" />
+                          </span>
+                          <span className="mt-1 block text-center font-mono text-[10px] text-grey">{label}</span>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
                 <div className="flex items-center justify-between border-t border-edge px-5 py-3">
                   <span className="font-mono text-xs text-grey">https://{s.name}</span>
