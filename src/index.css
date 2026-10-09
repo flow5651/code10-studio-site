@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+@theme {
+  /* Палитра логотипа CODE10 */
+  --color-ink: #2b2f38;        /* тёмно-синий/графит — C, CODE10 */
+  --color-navy: #232830;
+  --color-sage: #7c8a7a;       /* шалфейно-зелёный — угловые скобки */
+  --color-sage-soft: #9aa89a;
+  --color-grey: #8a9199;       /* серый — 10, STUDIO */
+  --color-mist: #6b7280;
+  --color-paper: #f4f5f4;      /* фон */
+  --color-panel: #ffffff;
+  --color-edge: #e3e6e3;
+
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* чтобы липкая шапка не перекрывала якоря навигации */
+section[id] {
+  scroll-margin-top: 72px;
+}
+
+/* курсор-указатель при наведении на все кликабельные элементы */
+button,
+[role="button"],
+summary,
+a[href],
+label[for],
+input[type="checkbox"],
+input[type="radio"],
+select {
+  cursor: pointer;
+}
+
+/* мотив логотипа: угловые скобки */
+.bracket {
+  color: var(--color-sage);
+}
+
+/* тонкая сетка в духе кода */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(43, 47, 56, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(43, 47, 56, 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* курсор-редактора для заголовков */
+.caret::after {
+  content: "|";
+  margin-left: 2px;
+  color: var(--color-sage);
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* линия-подчёркивание, раскрывающаяся при появлении */
+.line-reveal {
+  background-image: linear-gradient(var(--color-sage), var(--color-sage));
+  background-size: 0% 2px;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  transition: background-size 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.line-reveal.in {
+  background-size: 100% 2px;
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* параллакс-скобки на фоне */
+.parallax-bracket {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  color: var(--color-sage-soft);
+  opacity: 0.10;
+  user-select: none;
+  line-height: 1;
+  will-change: transform;
+  pointer-events: none;
+}
