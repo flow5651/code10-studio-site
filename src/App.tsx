@@ -6,7 +6,7 @@ import { Logo, Mark } from './Logo'
 import { Calculator } from './Calculator'
 import { CONTACTS } from './site'
 import { PRICING } from './pricing'
-import { projects } from './projects'
+import { projects, liveSites } from './projects'
 import { Link } from 'react-router-dom'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -364,6 +364,38 @@ export default function App() {
                   </span>
                 </div>
               </Link>
+            ))}
+
+            {/* Живые производственные сайты */}
+            {liveSites.map((s) => (
+              <a
+                key={s.url}
+                href={s.url}
+                target="_blank"
+                rel="noreferrer"
+                data-reveal
+                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-edge bg-white shadow-sm transition hover:border-sage/60 hover:shadow-xl"
+              >
+                <div className="p-5">
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs uppercase tracking-[0.2em]" style={{ color: s.accent }}>
+                      {s.niche}
+                    </span>
+                    <span className="rounded-full bg-sage/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-sage">
+                      в продакшене
+                    </span>
+                  </div>
+                  <div className="mt-2 text-lg font-bold text-ink">{s.name}</div>
+                  <p className="mt-2 text-sm leading-relaxed text-mist">{s.desc}</p>
+                </div>
+                <div className="flex items-center justify-between border-t border-edge px-5 py-3">
+                  <span className="font-mono text-xs text-grey">https://{s.name}</span>
+                  <span className="inline-flex items-center gap-1 text-sm font-semibold" style={{ color: s.accent }}>
+                    Открыть сайт
+                    <span className="transition group-hover:translate-x-1">↗</span>
+                  </span>
+                </div>
+              </a>
             ))}
 
             {/* Плейсхолдер-приглашение */}
