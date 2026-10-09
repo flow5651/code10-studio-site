@@ -6,13 +6,15 @@ import { Logo, Mark } from './Logo'
 import { Calculator } from './Calculator'
 import { CONTACTS } from './site'
 import { PRICING } from './pricing'
+import { projects } from './projects'
+import { Link } from 'react-router-dom'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const navLinks = [
   { label: 'Услуги', id: 'uslugi' },
+  { label: 'Портфолио', id: 'portfolio' },
   { label: 'Калькулятор', id: 'kalkulyator' },
-  { label: 'Процесс', id: 'process' },
   { label: 'Тарифы', id: 'tarify' },
   { label: 'FAQ', id: 'faq' },
 ]
@@ -315,6 +317,72 @@ export default function App() {
                 <div className="mt-1 text-sm text-mist">{n.note}</div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Portfolio */}
+      <section id="portfolio" className="bg-white py-24">
+        <div className="mx-auto max-w-6xl px-5">
+          <SectionHead k="· Портфолио" t="Живые демо из нашей базы лидов" />
+          <p className="mx-auto -mt-8 mb-10 max-w-2xl text-center text-mist">
+            Это не фотошоп. Сайты собраны из шаблонов ниш и мгновенно заполнены реальными данных клиентов
+            из Яндекс.Карт (название, адрес, телефон, услуги, фото, отзывы). Клик — и открывается макет.
+          </p>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {projects.map((p) => (
+              <Link
+                key={p.slug}
+                to={`/portfolio/${p.slug}`}
+                data-reveal
+                className="group overflow-hidden rounded-2xl border border-edge bg-white shadow-sm transition hover:border-sage/60 hover:shadow-xl"
+              >
+                <div className="relative h-44 overflow-hidden bg-ink">
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                  <div className="absolute bottom-3 left-4 right-4">
+                    <div className="font-mono text-xs uppercase tracking-[0.2em]" style={{ color: p.accent }}>
+                      {p.niche}
+                    </div>
+                    <div className="mt-1 text-lg font-bold text-white">{p.name}</div>
+                  </div>
+                </div>
+                <div className="p-5">
+                  <div className="flex items-center gap-2 text-sm text-mist">
+                    <span style={{ color: p.accent }}>{'★'.repeat(Math.round(p.rating))}</span>
+                    <span className="font-medium text-ink">{p.rating.toFixed(1)}</span>
+                    <span>· {p.reviews} отзывов</span>
+                  </div>
+                  <p className="mt-2 text-sm text-mist">{p.address}</p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold" style={{ color: p.accent }}>
+                    Смотреть демо
+                    <span className="transition group-hover:translate-x-1">→</span>
+                  </span>
+                </div>
+              </Link>
+            ))}
+
+            {/* Плейсхолдер-приглашение */}
+            <div
+              data-reveal
+              className="flex flex-col justify-center rounded-2xl border border-dashed border-edge bg-paper p-6 text-center"
+            >
+              <div className="font-mono text-3xl font-extrabold text-sage">&lt;+&gt;</div>
+              <h3 className="mt-3 text-lg font-bold text-ink">Ваш бизнес — следующий</h3>
+              <p className="mt-2 text-sm text-mist">
+                Если вы нашли себя в базе — напишите нам, соберём ваш демо-сайт бесплатно.
+              </p>
+              <a
+                href="#cta"
+                className="mt-4 rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-white transition hover:bg-navy"
+              >
+                Получить свой демо
+              </a>
+            </div>
           </div>
         </div>
       </section>
