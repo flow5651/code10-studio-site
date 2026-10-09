@@ -117,6 +117,26 @@ export default function App() {
     }
   }, [live])
 
+  // Анимация появления модалки
+  useEffect(() => {
+    if (!live) return
+    gsap.fromTo(
+      '[data-modal-panel]',
+      { opacity: 0, scale: 0.9, y: 24 },
+      { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: 'power3.out' },
+    )
+    gsap.fromTo(
+      '[data-modal-overlay]',
+      { opacity: 0 },
+      { opacity: 1, duration: 0.3, ease: 'power1.out' },
+    )
+    gsap.fromTo(
+      '[data-modal-figure]',
+      { opacity: 0, y: 18 },
+      { opacity: 1, y: 0, duration: 0.4, stagger: 0.07, delay: 0.15, ease: 'power2.out' },
+    )
+  }, [live])
+
   // Всё аккуратно чистим через ctx: повторный рендер (StrictMode) не сломает
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -601,8 +621,9 @@ export default function App() {
           aria-label={live.name}
           onClick={() => setLive(null)}
         >
-          <div className="absolute inset-0 bg-ink/70 backdrop-blur-sm" />
+          <div data-modal-overlay className="absolute inset-0 bg-ink/70 backdrop-blur-sm" />
           <div
+            data-modal-panel
             className="relative z-10 max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl bg-white shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
@@ -663,7 +684,7 @@ export default function App() {
                   ['Услуги', '/portfolio/famounts/services.jpg'],
                   ['Блог', '/portfolio/famounts/blog.jpg'],
                 ].map(([label, src]) => (
-                  <figure key={src} className="overflow-hidden rounded-xl border border-edge">
+                  <figure key={src} data-modal-figure className="overflow-hidden rounded-xl border border-edge">
                     <a href={src} target="_blank" rel="noreferrer" className="block bg-paper">
                       <img src={src} alt={`${live.name} — ${label}`} className="w-full object-cover object-top" loading="lazy" />
                     </a>
